@@ -18,6 +18,8 @@
 .env.production.local
 
 # misc
+.idea
+.mcp.json
 .DS_Store
 *.pem
 npm-debug.log*
