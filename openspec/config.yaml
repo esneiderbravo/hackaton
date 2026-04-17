@@ -1,20 +1,331 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  ## Project: HackApp — Hackathon Base
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS + Supabase + Radix UI.
+  Production-ready hackathon starter. Every new feature follows the patterns below exactly.
+
+  ---
+
+  ## Tech Stack
+
+  - **Framework**: Next.js 15, App Router, React 19, TypeScript strict
+  - **Styling**: Tailwind CSS v3 + `cn()` utility (clsx + tailwind-merge)
+  - **UI Primitives**: Radix UI (@radix-ui/*) wrapped in components/ui/
+  - **Icons**: lucide-react
+  - **Forms**: React Hook Form + Zod (always inline schema, zodResolver)
+  - **Auth**: Supabase SSR via @supabase/ssr — cookie-based session
+  - **Database**: Supabase PostgreSQL + Row Level Security on every table
+  - **State**: Hook-local React state (useState/useEffect). Zustand installed but reserved for cross-component global state only.
+  - **AI**: Claude API via /api/ai/chat server route (never expose ANTHROPIC_API_KEY client-side)
+  - **Validation**: Zod everywhere — DB payloads, form schemas, API responses
+
+  ---
+
+  ## Directory Layout
+
+  ```
+  app/
+    (auth)/              # login, signup — public, no Sidebar
+    (dashboard)/         # all protected routes, wraps Sidebar
+      dashboard/
+        <feature>/       # one folder per feature, e.g. items/, users/
+          page.tsx
+    api/
+      ai/chat/route.ts   # Claude AI server route
+      <feature>/route.ts # API routes when needed
+    layout.tsx           # root layout + fonts
+    page.tsx             # redirects → /dashboard or /login
+
+  components/
+    ui/                  # Radix-based primitives (Button, Input, Card, …)
+    auth/                # LoginForm, SignupForm
+    layout/              # Sidebar, Header
+    <feature>/           # e.g. items/ → ItemsTable, ItemForm
+
+  hooks/
+    use<Feature>.ts      # e.g. useItems.ts
+
+  services/
+    <feature>.service.ts # e.g. items.service.ts
+
+  lib/
+    supabase/
+      client.ts          # browser client
+      server.ts          # SSR/RSC client
+      middleware.ts      # session management
+
+  types/
+    index.ts             # ALL shared TypeScript types live here
+
+  utils/
+    cn.ts                # Tailwind class merger
+    format.ts            # date/number formatters
+
+  supabase/
+    migrations/          # SQL migration files, numbered sequentially
+  ```
+
+  ---
+
+  ## Data Flow (per feature)
+
+  ```
+  Page (RSC or client)
+    └─► Component ('use client', interactive)
+          └─► Hook (useState, useEffect, calls service)
+                └─► Service (Supabase or API calls)
+                      └─► Supabase DB (RLS-protected)
+  ```
+
+  ---
+
+  ## TypeScript Conventions
+
+  - All shared types go in `types/index.ts`. No inline type definitions in service or hook files.
+  - Always define the full entity type, plus `Create` and `Update` variants:
+    ```ts
+    export interface Entity { id: string; user_id: string; ... }
+    export type EntityCreate = Pick<Entity, 'field1' | 'field2'>
+    export type EntityUpdate = Partial<EntityCreate>
+    ```
+  - Use `ApiResponse<T>` = `{ data: T | null; error: string | null }` for all service returns.
+  - Use `PaginatedResponse<T>` = `{ data: T[]; count: number; page: number; pageSize: number }` for lists.
+  - Prefer named exports everywhere. No default exports for components, hooks, or services.
+
+  ---
+
+  ## Service Pattern
+
+  File: `services/<feature>.service.ts`
+
+  - Pure async functions, no React inside services
+  - Always return `ApiResponse<T>` shape
+  - Call Supabase client from `@/lib/supabase/client` (browser) or pass it in
+  - Handle errors: catch and return `{ data: null, error: message }`
+  - Validate payloads with Zod before sending to DB
+
+  ```ts
+  export const featureService = {
+    async getAll(): Promise<{ data: Feature[]; error: string | null }> { ... },
+    async getById(id: string): Promise<{ data: Feature | null; error: string | null }> { ... },
+    async create(payload: FeatureCreate): Promise<{ data: Feature | null; error: string | null }> { ... },
+    async update(id: string, payload: FeatureUpdate): Promise<{ data: Feature | null; error: string | null }> { ... },
+    async delete(id: string): Promise<{ error: string | null }> { ... },
+  }
+  ```
+
+  ---
+
+  ## Hook Pattern
+
+  File: `hooks/use<Feature>.ts`
+
+  - Always `'use client'` at top of the consuming component, not in the hook itself
+  - Owns all React state for the feature: items list, loading, error
+  - Wraps service calls and updates local state optimistically or after response
+  - Exposes: `{ data, loading, error, refetch, create, update, delete }`
+
+  ```ts
+  export function useFeature() {
+    const [items, setItems] = useState<Feature[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+    // ...
+    return { items, loading, error, refetch, createFeature, updateFeature, deleteFeature }
+  }
+  ```
+
+  ---
+
+  ## Component Patterns
+
+  - **Named exports only**: `export function ItemsTable() {}`
+  - **'use client'** at top of any component that uses hooks, events, or browser APIs
+  - **Server Components** for pages that only fetch + render (use `lib/supabase/server.ts`)
+  - **Loading states**: always show `<Spinner size="lg" />` centered in a min-height container
+  - **Empty states**: dashed border container with message + CTA button
+  - **Dialogs**: use `<Dialog>` from components/ui/dialog for create/edit modals
+  - **Forms**: always inside Dialog for create/edit. Standalone page forms for multi-step flows.
+  - **Error display**: inline `<p className="text-xs text-destructive">` below field, or toast for async errors
+
+  ---
+
+  ## Form Pattern
+
+  File: `components/<feature>/<Feature>Form.tsx`
+
+  Always follow this structure:
+  1. Define Zod schema inline at top of file
+  2. Derive TypeScript type with `z.infer<typeof schema>`
+  3. Define props interface with `initialData?`, `onSubmit`, `onCancel`, `isSubmitting?`
+  4. Use `useForm` with `zodResolver(schema)` and `defaultValues`
+  5. Render field → Label → Input/Select/Textarea → error message
+  6. Submit button shows `<Loader2 animate-spin />` when `isSubmitting`
+
+  ```ts
+  const featureSchema = z.object({ ... })
+  type FeatureFormData = z.infer<typeof featureSchema>
+
+  interface FeatureFormProps {
+    initialData?: Feature
+    onSubmit: (data: FeatureCreate) => Promise<void>
+    onCancel: () => void
+    isSubmitting?: boolean
+  }
+  ```
+
+  ---
+
+  ## Page Pattern
+
+  File: `app/(dashboard)/dashboard/<feature>/page.tsx`
+
+  - Use metadata export for page title
+  - Simple wrapper: title/description header + main component
+  - Protect with Supabase SSR session check if needed
+
+  ```tsx
+  import { Metadata } from 'next'
+  export const metadata: Metadata = { title: 'Feature — HackApp' }
+
+  export default function FeaturePage() {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold">Feature</h1>
+          <p className="text-muted-foreground">Manage your features.</p>
+        </div>
+        <FeatureTable />
+      </div>
+    )
+  }
+  ```
+
+  ---
+
+  ## Navigation
+
+  File: `components/layout/Sidebar.tsx`
+
+  - Every new dashboard feature gets a nav item
+  - Use lucide-react icon
+  - Pattern: `{ href: '/dashboard/<feature>', label: 'Feature', icon: SomeIcon }`
+
+  ---
+
+  ## Supabase Migration Standards
+
+  Directory: `supabase/migrations/`
+  Naming: `NNN_<description>.sql` (e.g., `002_add_projects.sql`)
+
+  Every migration must include:
+  1. `CREATE TABLE` with snake_case column names
+  2. `id UUID DEFAULT gen_random_uuid() PRIMARY KEY`
+  3. `user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL`
+  4. `created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL`
+  5. `updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL`
+  6. Enable RLS: `ALTER TABLE <table> ENABLE ROW LEVEL SECURITY;`
+  7. RLS policy for SELECT: users see own rows only
+  8. RLS policy for INSERT: user_id must match auth.uid()
+  9. RLS policy for UPDATE: user_id must match auth.uid()
+  10. RLS policy for DELETE: user_id must match auth.uid()
+  11. Index on `user_id` for performance
+  12. Trigger for `updated_at` auto-update
+
+  ```sql
+  -- Example pattern
+  CREATE TABLE IF NOT EXISTS items (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'archived')),
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+  );
+
+  CREATE INDEX IF NOT EXISTS items_user_id_idx ON items(user_id);
+
+  ALTER TABLE items ENABLE ROW LEVEL SECURITY;
+
+  CREATE POLICY "Users can view own items" ON items FOR SELECT USING (auth.uid() = user_id);
+  CREATE POLICY "Users can create own items" ON items FOR INSERT WITH CHECK (auth.uid() = user_id);
+  CREATE POLICY "Users can update own items" ON items FOR UPDATE USING (auth.uid() = user_id);
+  CREATE POLICY "Users can delete own items" ON items FOR DELETE USING (auth.uid() = user_id);
+
+  CREATE OR REPLACE FUNCTION update_updated_at()
+  RETURNS TRIGGER AS $$
+  BEGIN NEW.updated_at = NOW(); RETURN NEW; END;
+  $$ LANGUAGE plpgsql;
+
+  CREATE TRIGGER set_updated_at BEFORE UPDATE ON items
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  ```
+
+  ---
+
+  ## API Routes (when needed)
+
+  File: `app/api/<feature>/route.ts`
+
+  - Always validate session with Supabase SSR server client
+  - Return 401 if no session
+  - Use Zod to validate request body
+  - Return `NextResponse.json({ data, error })` consistently
+  - Never expose service keys or ANTHROPIC_API_KEY to client
+
+  ---
+
+  ## Styling Rules
+
+  - Tailwind utility classes only — no custom CSS files except globals.css
+  - Use `cn()` for conditional classes
+  - Color tokens: `text-muted-foreground`, `bg-muted`, `border`, `text-destructive`, etc.
+  - Spacing rhythm: `space-y-4`, `space-y-6`, `gap-2`, `gap-4`
+  - Responsive: mobile-first, use `sm:`, `md:`, `lg:` breakpoints
+  - Animations: `tailwindcss-animate` for entrance effects, `animate-spin` for loaders
+
+  ---
+
+  ## Adding a New Full Feature (checklist order)
+
+  1. Write SQL migration → `supabase/migrations/NNN_add_<feature>.sql`
+  2. Add types to `types/index.ts` (entity, Create, Update variants)
+  3. Create service → `services/<feature>.service.ts`
+  4. Create hook → `hooks/use<Feature>.ts`
+  5. Create components → `components/<feature>/`
+     a. `<Feature>Form.tsx` (Zod + React Hook Form)
+     b. `<Feature>Table.tsx` or `<Feature>List.tsx` (uses hook + Dialog)
+  6. Create page → `app/(dashboard)/dashboard/<feature>/page.tsx`
+  7. Add nav item → `components/layout/Sidebar.tsx`
+
+rules:
+  proposal:
+    - Keep proposals under 400 words
+    - Always include: Problem, Solution, Non-goals, and Success criteria sections
+    - State which existing patterns from config.yaml context are being followed
+    - Flag any deviation from established patterns and justify it
+    - Include the migration number if a new Supabase table is needed
+
+  design:
+    - Include a data flow diagram (ASCII) showing Page → Component → Hook → Service → Supabase
+    - Specify exact file paths for every artifact to be created
+    - List all new types to add to types/index.ts
+    - Include the full SQL migration structure (table + RLS + indexes + trigger)
+    - Specify Zod schema structure for any new forms
+    - Note any new nav item and icon
+
+  tasks:
+    - Break into small, independently verifiable steps
+    - Order: migration → types → service → hook → components → page → nav
+    - Each task should be completable in under 1 hour
+    - Include verification step per task (e.g., "run type-check", "view in browser")
+    - Mark tasks that require Supabase SQL editor action separately
+
+  spec:
+    - Written from user perspective (user stories or acceptance criteria)
+    - Include: happy path, error states, empty states, loading states
+    - Specify RLS behavior (what can each user see/do)
+    - Call out any admin vs regular user distinctions if applicable
