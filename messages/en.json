@@ -1,0 +1,71 @@
+{
+  "auth": {
+    "signIn": "Sign in",
+    "signInDescription": "Enter your email and password to access your account",
+    "signUp": "Create account",
+    "signUpDescription": "Start building something amazing today",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "John Doe",
+    "confirmPassword": "Confirm password",
+    "noAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signUpLink": "Sign up",
+    "signInLink": "Sign in",
+    "checkEmail": "Check your email",
+    "confirmationSent": "We've sent a confirmation link to your email address.",
+    "backToLogin": "Back to login"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "signedInAs": "Signed in as",
+    "signOut": "Sign out"
+  },
+  "header": {
+    "notifications": "Notifications"
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome back, {name}!",
+    "todayOverview": "Here is what is happening today.",
+    "activeUsers": "Active Users",
+    "activity": "Activity",
+    "growth": "Growth",
+    "youAreHere": "You are here!",
+    "systemsNominal": "All systems nominal",
+    "gettingStarted": "Just getting started",
+    "quickStart": "Quick Start",
+    "quickStartDescription": "Your hackathon base is ready. Here is what to do next:",
+    "quickStartItem1": "Visit AI Assistant to try the Claude integration",
+    "quickStartItem2": "Customize the sidebar nav items for your use case",
+    "quickStartItem3": "Deploy to Vercel with one click"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your account and preferences.",
+    "account": "Account",
+    "accountDescription": "Your account information",
+    "email": "Email",
+    "name": "Name",
+    "userId": "User ID"
+  },
+  "validation": {
+    "invalidEmail": "Invalid email address",
+    "passwordMinLength": "Password must be at least {min} characters",
+    "nameMinLength": "Name must be at least {min} characters",
+    "passwordsNoMatch": "Passwords don't match"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "close": "Close"
+  }
+}

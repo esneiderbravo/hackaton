@@ -14,14 +14,14 @@ export function useToast() {
 
   const toast = ({ title, description, variant = 'default' }: Omit<Toast, 'id'>) => {
     const id = Math.random().toString(36).slice(2)
-    setToasts(prev => [...prev, { id, title, description, variant }])
+    setToasts((prev) => [...prev, { id, title, description, variant }])
     setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id))
+      setToasts((prev) => prev.filter((t) => t.id !== id))
     }, 4000)
   }
 
   const dismiss = (id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id))
+    setToasts((prev) => prev.filter((t) => t.id !== id))
   }
 
   return { toasts, toast, dismiss }

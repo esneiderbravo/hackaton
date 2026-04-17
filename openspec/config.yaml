@@ -304,7 +304,7 @@ context: |
 rules:
   proposal:
     - Keep proposals under 400 words
-    - Always include: Problem, Solution, Non-goals, and Success criteria sections
+    - 'Always include: Problem, Solution, Non-goals, and Success criteria sections'
     - State which existing patterns from config.yaml context are being followed
     - Flag any deviation from established patterns and justify it
     - Include the migration number if a new Supabase table is needed
@@ -319,13 +319,13 @@ rules:
 
   tasks:
     - Break into small, independently verifiable steps
-    - Order: migration → types → service → hook → components → page → nav
+    - 'Order: migration → types → service → hook → components → page → nav'
     - Each task should be completable in under 1 hour
     - Include verification step per task (e.g., "run type-check", "view in browser")
     - Mark tasks that require Supabase SQL editor action separately
 
   spec:
     - Written from user perspective (user stories or acceptance criteria)
-    - Include: happy path, error states, empty states, loading states
+    - 'Include: happy path, error states, empty states, loading states'
     - Specify RLS behavior (what can each user see/do)
     - Call out any admin vs regular user distinctions if applicable

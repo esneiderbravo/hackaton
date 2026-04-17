@@ -3,8 +3,8 @@ description: Vercel CLI expert guidance. Use when deploying, managing environmen
 metadata:
   priority: 4
   docs:
-    - "https://vercel.com/docs/cli"
-  sitemap: "https://vercel.com/sitemap/docs.xml"
+    - 'https://vercel.com/docs/cli'
+  sitemap: 'https://vercel.com/sitemap/docs.xml'
   pathPatterns:
     - 'vercel.json'
     - 'vercel.ts'
@@ -21,20 +21,20 @@ metadata:
     - '\bnpx\s+@vercel/config\b'
   promptSignals:
     phrases:
-      - "check deployment"
-      - "check deploy"
-      - "deployment status"
-      - "deploy status"
-      - "vercel logs"
-      - "deployment logs"
-      - "deploy logs"
-      - "vercel inspect"
-      - "is it deployed"
-      - "deploy failing"
-      - "deploy failed"
-      - "deployment error"
-      - "check vercel"
-      - "vercel status"
+      - 'check deployment'
+      - 'check deploy'
+      - 'deployment status'
+      - 'deploy status'
+      - 'vercel logs'
+      - 'deployment logs'
+      - 'deploy logs'
+      - 'vercel inspect'
+      - 'is it deployed'
+      - 'deploy failing'
+      - 'deploy failed'
+      - 'deployment error'
+      - 'check vercel'
+      - 'vercel status'
     allOf:
       - [check, deployment]
       - [check, deploy]
@@ -44,14 +44,14 @@ metadata:
       - [deploy, failed]
       - [deploy, stuck]
     anyOf:
-      - "deployment"
-      - "deploy"
-      - "vercel"
-      - "production"
+      - 'deployment'
+      - 'deploy'
+      - 'vercel'
+      - 'production'
     noneOf:
-      - "terraform"
-      - "aws deploy"
-      - "heroku"
+      - 'terraform'
+      - 'aws deploy'
+      - 'heroku'
     minScore: 6
 retrieval:
   aliases:
@@ -71,13 +71,10 @@ retrieval:
     - vercel link
     - vercel logs
 chainTo:
-  -
-    pattern: '"functions"\s*:\s*\{|"maxDuration"\s*:|"memory"\s*:'
+  - pattern: '"functions"\s*:\s*\{|"maxDuration"\s*:|"memory"\s*:'
     targetSkill: vercel-functions
     message: 'Functions configuration detected in vercel.json — loading Vercel Functions guidance for runtime options, streaming, and Fluid Compute.'
     skipIfFileContains: '"crons"\s*:'
-  -
-    pattern: '"redirects"\s*:\s*\[|"rewrites"\s*:\s*\[|"headers"\s*:\s*\['
+  - pattern: '"redirects"\s*:\s*\[|"rewrites"\s*:\s*\[|"headers"\s*:\s*\['
     targetSkill: routing-middleware
     message: 'Routing rules in vercel.json — loading Routing Middleware guidance for platform-level request interception patterns.'
-

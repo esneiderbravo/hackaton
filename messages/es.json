@@ -1,0 +1,71 @@
+{
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signInDescription": "Ingresa tu correo y contraseña para acceder a tu cuenta",
+    "signUp": "Crear cuenta",
+    "signUpDescription": "Empieza a construir algo increíble hoy",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "••••••••",
+    "fullName": "Nombre completo",
+    "fullNamePlaceholder": "Juan Pérez",
+    "confirmPassword": "Confirmar contraseña",
+    "noAccount": "¿No tienes cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "signUpLink": "Regístrate",
+    "signInLink": "Inicia sesión",
+    "checkEmail": "Revisa tu correo",
+    "confirmationSent": "Hemos enviado un enlace de confirmación a tu correo electrónico.",
+    "backToLogin": "Volver al inicio de sesión"
+  },
+  "sidebar": {
+    "dashboard": "Panel",
+    "settings": "Configuración",
+    "signedInAs": "Conectado como",
+    "signOut": "Cerrar sesión"
+  },
+  "header": {
+    "notifications": "Notificaciones"
+  },
+  "dashboard": {
+    "welcomeBack": "¡Bienvenido, {name}!",
+    "todayOverview": "Esto es lo que está pasando hoy.",
+    "activeUsers": "Usuarios activos",
+    "activity": "Actividad",
+    "growth": "Crecimiento",
+    "youAreHere": "¡Estás aquí!",
+    "systemsNominal": "Todos los sistemas normales",
+    "gettingStarted": "Recién comenzando",
+    "quickStart": "Inicio rápido",
+    "quickStartDescription": "Tu base para hackathon está lista. Esto es lo que debes hacer a continuación:",
+    "quickStartItem1": "Visita el Asistente IA para probar la integración con Claude",
+    "quickStartItem2": "Personaliza los elementos de navegación del sidebar para tu caso de uso",
+    "quickStartItem3": "Despliega en Vercel con un clic"
+  },
+  "settings": {
+    "title": "Configuración",
+    "description": "Administra tu cuenta y preferencias.",
+    "account": "Cuenta",
+    "accountDescription": "Tu información de cuenta",
+    "email": "Correo",
+    "name": "Nombre",
+    "userId": "ID de usuario"
+  },
+  "validation": {
+    "invalidEmail": "Correo electrónico inválido",
+    "passwordMinLength": "La contraseña debe tener al menos {min} caracteres",
+    "nameMinLength": "El nombre debe tener al menos {min} caracteres",
+    "passwordsNoMatch": "Las contraseñas no coinciden"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "close": "Cerrar"
+  }
+}

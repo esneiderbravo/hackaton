@@ -1,9 +1,5 @@
-export function formatDate(date: string | Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(new Date(date))
+export function formatDate(date: string | Date, locale: string = 'es'): string {
+  return new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(new Date(date))
 }
 
 export function formatDateTime(date: string | Date): string {

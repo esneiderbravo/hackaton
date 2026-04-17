@@ -1,0 +1,23 @@
+{
+  "skill_name": "format-commit-push-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Format and commit my changes with message 'chore: update openspec artifacts to reflect items removal'",
+      "expected_output": "Runs npm run format and npm run lint:fix, stages all changes, commits with the provided message plus Co-Authored-By trailer, then pushes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Format the code and push — figure out a good commit message yourself",
+      "expected_output": "Runs formatters, inspects the diff, writes a concise conventional commit message (type: description), stages, commits, and pushes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Run formatters and commit, but don't push yet",
+      "expected_output": "Runs npm run format and npm run lint:fix, stages, commits — then stops before pushing because the user said 'don't push yet'.",
+      "files": []
+    }
+  ]
+}

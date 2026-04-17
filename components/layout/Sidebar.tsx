@@ -1,27 +1,23 @@
 'use client'
 
-import {
-  LayoutDashboard,
-  Database,
-  Settings,
-  LogOut,
-} from 'lucide-react'
+import { LayoutDashboard, Settings, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 import { cn } from '@/utils/cn'
 
-const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/items', label: 'Items', icon: Database },
-  { href: '/dashboard/settings', label: 'Settings', icon: Settings },
-]
-
 export function Sidebar() {
   const pathname = usePathname()
   const { signOut, user } = useAuth()
+  const t = useTranslations('sidebar')
+
+  const navItems = [
+    { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
+    { href: '/dashboard/settings', label: t('settings'), icon: Settings },
+  ]
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r bg-card">
@@ -52,7 +48,7 @@ export function Sidebar() {
       {/* User + Logout */}
       <div className="border-t p-4">
         <div className="mb-3 px-3">
-          <p className="text-xs text-muted-foreground">Signed in as</p>
+          <p className="text-xs text-muted-foreground">{t('signedInAs')}</p>
           <p className="truncate text-sm font-medium">{user?.email}</p>
         </div>
         <Button
@@ -62,7 +58,7 @@ export function Sidebar() {
           onClick={signOut}
         >
           <LogOut className="h-4 w-4" />
-          Sign out
+          {t('signOut')}
         </Button>
       </div>
     </aside>

@@ -3,8 +3,8 @@ description: Upgrade Next.js to the latest version following official migration 
 metadata:
   priority: 6
   docs:
-    - "https://nextjs.org/docs/app/guides/upgrading"
-    - "https://nextjs.org/docs/app/guides/upgrading/codemods"
+    - 'https://nextjs.org/docs/app/guides/upgrading'
+    - 'https://nextjs.org/docs/app/guides/upgrading/codemods'
   pathPatterns:
     - 'next.config.*'
     - 'package.json'
@@ -16,22 +16,22 @@ metadata:
     - '\byarn\s+add\s+[^\n]*\bnext@'
   promptSignals:
     phrases:
-      - "upgrade next"
-      - "upgrade nextjs"
-      - "migrate next"
-      - "update next.js"
-      - "next.js upgrade"
-      - "nextjs migration"
-      - "next codemod"
+      - 'upgrade next'
+      - 'upgrade nextjs'
+      - 'migrate next'
+      - 'update next.js'
+      - 'next.js upgrade'
+      - 'nextjs migration'
+      - 'next codemod'
     allOf:
       - [upgrade, next]
       - [migrate, next]
       - [update, nextjs]
     anyOf:
-      - "breaking changes"
-      - "codemod"
-      - "migration guide"
-      - "version upgrade"
+      - 'breaking changes'
+      - 'codemod'
+      - 'migration guide'
+      - 'version upgrade'
     noneOf: []
     minScore: 6
 retrieval:
@@ -49,8 +49,6 @@ retrieval:
     - upgrade
     - breaking changes
 chainTo:
-  -
-    pattern: 'getServerSideProps|getStaticProps|next/router|next/head|next/document'
+  - pattern: 'getServerSideProps|getStaticProps|next/router|next/head|next/document'
     targetSkill: nextjs
     message: 'Pages Router patterns detected during upgrade — loading Next.js best practices for App Router migration.'
-
