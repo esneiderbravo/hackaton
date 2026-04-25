@@ -16,6 +16,7 @@
 | US-20260425-12 | Visualización de recomendaciones de aliados en lenguaje simple | draft | [US-20260425-12-recommendation-display-plain-language.md](./US-20260425-12-recommendation-display-plain-language.md) |
 | US-20260425-13 | Retroalimentación del usuario para mejorar las recomendaciones ML | draft | [US-20260425-13-recommendation-feedback-ml-improvement.md](./US-20260425-13-recommendation-feedback-ml-improvement.md) |
 | US-20260425-14 | Ver clusters asociados a mi empresa | draft | [US-20260425-14-clusters-asociados-empresa.md](./US-20260425-14-clusters-asociados-empresa.md) |
+| US-20260425-15 | Ver detalle de recomendacion | draft | [US-20260425-15-detalle-recomendacion-contexto.md](./US-20260425-15-detalle-recomendacion-contexto.md) |
 
 # ChatGPT suggested
 | US-20260425-01 | Ver dashboard de recomendaciones principales | draft | [US-20260425-01-dashboard-recomendaciones-principales.md](./US-20260425-01-dashboard-recomendaciones-principales.md) |
