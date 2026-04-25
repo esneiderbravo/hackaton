@@ -1,5 +1,5 @@
 ---
-name: format-commit-push-skill
+name: format-commit-push
 description: >-
   Use this skill whenever the user wants to commit code changes, push to git,
   or is done with a task and wants to save their work. Triggers on: "commit my
@@ -15,7 +15,7 @@ metadata:
   last_reviewed: 2026-04-17
   review_interval_days: 90
 ---
-# /format-commit-push-skill — Format, Commit & Push
+# /format-commit-push — Format, Commit & Push
 
 Run formatters, commit everything cleanly, and push — so no unformatted code ever reaches the remote.
 
@@ -63,22 +63,37 @@ git add -A
 
 ### Step 4 — Commit
 
-**If the user provided a message**, use it verbatim (don't paraphrase).
+**If the user provided a message**, use it as the subject line and still generate a body (see below).
 
-**If no message was provided**, read the staged diff and write a concise commit message:
+**Always write a multi-line commit message** with a subject and a descriptive body:
+
+**Subject line:**
 - Imperative present tense: "add", "fix", "remove", "update" — not "added" or "adds"
 - Format: `type: short description` where type is `feat`, `fix`, `chore`, `refactor`, `docs`, or `style`
-- One line, under 72 characters
+- Under 72 characters
 
-Always append the Co-Authored-By trailer:
+**Body (mandatory — always include):**
+- Separated from the subject by a blank line
+- Explain **what** changed and **why** — not just how
+- Mention every file or module touched and what role it plays in the change
+- Call out non-obvious decisions, trade-offs, or constraints
+- Reference the user story, ticket, or requirement that motivated the change when available
+- Use plain prose; bullet points are fine for multiple independent changes
+- Aim for 3–10 lines — enough context for a future reader to understand without diffing
 
 ```bash
-git commit -m "$(cat <<'EOF'
-<message>
+git commit -m "<subject>" -m "<body paragraph 1>" -m "<body paragraph 2 if needed>"
+```
 
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
-EOF
-)"
+Example:
+```bash
+git commit \
+  -m "feat: add RLS policies to items table" \
+  -m "Creates the items table with UUID primary key, user_id foreign key, and a status CHECK constraint. Enables Row Level Security so each user can only read and modify their own rows.
+
+Four policies are added: SELECT, INSERT, UPDATE, and DELETE — all scoped to auth.uid() = user_id. An index on user_id is included for query performance. An updated_at trigger keeps the timestamp current on every row change.
+
+Relates to US-20260424-04 (Supabase migration folder and manual workflow)."
 ```
 
 ### Step 5 — Push
