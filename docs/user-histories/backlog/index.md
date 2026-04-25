@@ -6,13 +6,13 @@
 | US-20260424-02 | Configure ESLint linter | draft | [US-20260424-02-configure-eslint-linter.md](./US-20260424-02-configure-eslint-linter.md) |
 | US-20260424-03 | Configure Prettier formatter | draft | [US-20260424-03-configure-prettier-formatter.md](./US-20260424-03-configure-prettier-formatter.md) |
 | US-20260424-04 | Define Supabase migration folder and manual execution workflow | draft | [US-20260424-04-supabase-migration-folder-manual-workflow.md](./US-20260424-04-supabase-migration-folder-manual-workflow.md) |
-| US-20260425-05 | Captura de descripción de negocio informal | draft | [US-20260425-05-informal-business-description-intake.md](./US-20260425-05-informal-business-description-intake.md) |
-| US-20260425-06 | Clasificación automática CIIU por IA a partir de descripción libre | draft | [US-20260425-06-ai-ciiu-automatic-classification.md](./US-20260425-06-ai-ciiu-automatic-classification.md) |
-| US-20260425-07 | Asignación automática a clúster productivo | draft | [US-20260425-07-automatic-cluster-assignment.md](./US-20260425-07-automatic-cluster-assignment.md) |
-| US-20260425-08 | Entrega de hoja de ruta de formalización empresarial | draft | [US-20260425-08-formalization-roadmap-delivery.md](./US-20260425-08-formalization-roadmap-delivery.md) |
-| US-20260425-09 | Visualización de miembros y estadísticas del clúster asignado | draft | [US-20260425-09-cluster-membership-visualization.md](./US-20260425-09-cluster-membership-visualization.md) |
-| US-20260425-10 | Entrenamiento del modelo K-means sobre el registro de negocios | draft | [US-20260425-10-kmeans-cluster-model-training.md](./US-20260425-10-kmeans-cluster-model-training.md) |
-| US-20260425-11 | Generación de recomendaciones de negocios complementarios por K-means | draft | [US-20260425-11-kmeans-complementary-business-recommendations.md](./US-20260425-11-kmeans-complementary-business-recommendations.md) |
-| US-20260425-12 | Visualización de recomendaciones de aliados en lenguaje simple | draft | [US-20260425-12-recommendation-display-plain-language.md](./US-20260425-12-recommendation-display-plain-language.md) |
-| US-20260425-13 | Retroalimentación del usuario para mejorar las recomendaciones ML | draft | [US-20260425-13-recommendation-feedback-ml-improvement.md](./US-20260425-13-recommendation-feedback-ml-improvement.md) |
+| US-20260425-05 | Describir negocio informal en lenguaje natural | draft | [US-20260425-05-descripcion-negocio-lenguaje-natural.md](./US-20260425-05-descripcion-negocio-lenguaje-natural.md) |
+| US-20260425-06 | Clasificación automática de actividad económica CIIU mediante IA | draft | [US-20260425-06-clasificacion-ciiu-por-ia.md](./US-20260425-06-clasificacion-ciiu-por-ia.md) |
+| US-20260425-07 | Asignación automática a clúster productivo | draft | [US-20260425-07-asignacion-cluster-productivo.md](./US-20260425-07-asignacion-cluster-productivo.md) |
+| US-20260425-08 | Recibir guía personalizada de formalización empresarial | draft | [US-20260425-08-guia-formalizacion-empresarial.md](./US-20260425-08-guia-formalizacion-empresarial.md) |
+| US-20260425-09 | Almacenar resultado de clasificación y clusterización en base de datos | draft | [US-20260425-09-almacenar-clasificacion-en-bd.md](./US-20260425-09-almacenar-clasificacion-en-bd.md) |
+| US-20260425-10 | Construir vector de características para el modelo K-means | draft | [US-20260425-10-ingenieria-caracteristicas-kmeans.md](./US-20260425-10-ingenieria-caracteristicas-kmeans.md) |
+| US-20260425-11 | Ejecutar K-means para identificar vecinos del mismo clúster | draft | [US-20260425-11-kmeans-vecinos-cluster.md](./US-20260425-11-kmeans-vecinos-cluster.md) |
+| US-20260425-12 | Motor de recomendaciones basado en vecinos del clúster K-means | draft | [US-20260425-12-motor-recomendaciones-cluster.md](./US-20260425-12-motor-recomendaciones-cluster.md) |
+| US-20260425-13 | Visualizar recomendaciones del clúster en la interfaz de usuario | draft | [US-20260425-13-visualizacion-recomendaciones.md](./US-20260425-13-visualizacion-recomendaciones.md) |
 
