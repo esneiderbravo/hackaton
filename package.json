@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -37,14 +38,22 @@
     "zod": "^3.23.8",
     "zustand": "^5.0.1"
   },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,json,css,md}": "prettier --write",
+    "*.{ts,tsx}": "eslint --max-warnings=0"
+  },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@typescript-eslint/parser": "^8.59.0",
     "eslint": "^8",
     "eslint-config-next": "^15.3.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
