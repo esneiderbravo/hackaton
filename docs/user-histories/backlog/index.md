@@ -16,3 +16,4 @@
 | US-20260425-12 | Motor de recomendaciones basado en vecinos del clúster K-means | draft | [US-20260425-12-motor-recomendaciones-cluster.md](./US-20260425-12-motor-recomendaciones-cluster.md) |
 | US-20260425-13 | Visualizar recomendaciones del clúster en la interfaz de usuario | draft | [US-20260425-13-visualizacion-recomendaciones.md](./US-20260425-13-visualizacion-recomendaciones.md) |
 
+| US-20260425-01 | Ver dashboard de recomendaciones principales | draft | [US-20260425-01-dashboard-recomendaciones-principales.md](./US-20260425-01-dashboard-recomendaciones-principales.md) |
