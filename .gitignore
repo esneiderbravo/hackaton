@@ -25,6 +25,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/reto_camara_de_comercio
 
 # vercel
 .vercel
