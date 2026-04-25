@@ -15,5 +15,7 @@
 | US-20260425-11 | Generación de recomendaciones de negocios complementarios por K-means | draft | [US-20260425-11-kmeans-complementary-business-recommendations.md](./US-20260425-11-kmeans-complementary-business-recommendations.md) |
 | US-20260425-12 | Visualización de recomendaciones de aliados en lenguaje simple | draft | [US-20260425-12-recommendation-display-plain-language.md](./US-20260425-12-recommendation-display-plain-language.md) |
 | US-20260425-13 | Retroalimentación del usuario para mejorar las recomendaciones ML | draft | [US-20260425-13-recommendation-feedback-ml-improvement.md](./US-20260425-13-recommendation-feedback-ml-improvement.md) |
+| US-20260425-14 | Ver clusters asociados a mi empresa | draft | [US-20260425-14-clusters-asociados-empresa.md](./US-20260425-14-clusters-asociados-empresa.md) |
 
+# ChatGPT suggested
 | US-20260425-01 | Ver dashboard de recomendaciones principales | draft | [US-20260425-01-dashboard-recomendaciones-principales.md](./US-20260425-01-dashboard-recomendaciones-principales.md) |
