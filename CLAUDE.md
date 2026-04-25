@@ -70,7 +70,31 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## Database Setup
 
-Run `supabase/migrations/001_initial.sql` in the Supabase SQL editor to create the `items` table with RLS.
+All schema changes live in `supabase/migrations/` as versioned SQL files. **Migrations are manual-only — never executed automatically.**
+
+### Migration naming convention
+
+```
+YYYYMMDDHHMMSS_description.sql
+```
+
+Example: `20260424194500_add_profiles_table.sql`
+
+### How to apply a migration
+
+Apply manually via the Supabase SQL editor or:
+
+```bash
+supabase db push   # run deliberately, never from CI/CD
+```
+
+### Rules
+
+- **Never modify a committed migration.** If a correction is needed, create a new migration file.
+- **Never run `supabase db push` automatically.** All applications are deliberate and reviewed.
+- The baseline schema is `supabase/migrations/20260424000000_initial_items_table.sql` — run this first on a fresh environment.
+
+See `supabase/migrations/README.md` for the full workflow guide.
 
 ---
 
