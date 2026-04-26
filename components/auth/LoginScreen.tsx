@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useAuth } from '@/hooks/useAuth'
 
 const loginSchema = z.object({
-  email: z.string().email('Ingresa un correo válido'),
+  identifier: z.string().min(1, 'Ingresa tu celular o correo'),
   password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
 })
 
@@ -26,8 +26,8 @@ export function LoginScreen() {
 
   const onSubmit = async (data: LoginFormData) => {
     setServerError(null)
-    const { error } = await signIn(data.email, data.password)
-    if (error) setServerError('Correo o contraseña incorrectos. Inténtalo de nuevo.')
+    const { error } = await signIn(data.identifier, data.password)
+    if (error) setServerError('Datos incorrectos. Verifica tu celular/correo y contraseña.')
   }
 
   return (
@@ -66,21 +66,21 @@ export function LoginScreen() {
               </div>
             )}
 
-            {/* Email */}
+            {/* Identifier */}
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-[#131b2e]" htmlFor="email">
-                Correo electrónico
+              <label className="block text-sm font-bold text-[#131b2e]" htmlFor="identifier">
+                Número de celular o correo electrónico
               </label>
               <input
-                {...register('email')}
-                className={`w-full h-12 px-4 text-base rounded-xl border ${errors.email ? 'border-[#ba1a1a]' : 'border-[#bcc9c6]'} focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/30 outline-none`}
-                id="email"
-                placeholder="Ej: tunegocio@correo.com"
-                type="email"
-                autoComplete="email"
+                {...register('identifier')}
+                className={`w-full h-12 px-4 text-base rounded-xl border ${errors.identifier ? 'border-[#ba1a1a]' : 'border-[#bcc9c6]'} focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/30 outline-none`}
+                id="identifier"
+                placeholder="Ej: 300 333 4444 o tunegocio@correo.com"
+                type="text"
+                autoComplete="username"
               />
-              {errors.email && (
-                <p className="text-xs text-[#ba1a1a] font-medium">{errors.email.message}</p>
+              {errors.identifier && (
+                <p className="text-xs text-[#ba1a1a] font-medium">{errors.identifier.message}</p>
               )}
             </div>
 

@@ -25,7 +25,7 @@ export function useAuth() {
 
   const signIn = async (email: string, password: string) => {
     const { error } = await authService.signIn(email, password)
-    if (!error) router.push('/onboarding')
+    if (!error) router.push('/home')
     return { error }
   }
 

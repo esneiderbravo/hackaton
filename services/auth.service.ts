@@ -13,12 +13,15 @@ export const authService = {
     return { data, error }
   },
 
-  async signIn(email: string, password: string) {
+  async signIn(identifier: string, password: string) {
     const supabase = createClient()
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    const isEmail = identifier.includes('@')
+    if (isEmail) {
+      const { data, error } = await supabase.auth.signInWithPassword({ email: identifier, password })
+      return { data, error }
+    }
+    const phone = identifier.startsWith('+') ? identifier : `+57${identifier.replace(/\s/g, '')}`
+    const { data, error } = await supabase.auth.signInWithPassword({ phone, password })
     return { data, error }
   },
 

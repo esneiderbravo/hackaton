@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Link from 'next/link'
 
 const onboardingSchema = z.object({
+  contrasena: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
   nombre_emprendedor: z.string().min(2, 'El nombre es muy corto'),
   correo_electronico: z.union([z.string().email('Ingresa un correo válido'), z.literal('')]).optional(),
   celular_contacto: z.union([z.string().min(10, 'El teléfono debe tener 10 dígitos'), z.literal('')]).optional(),
@@ -28,6 +30,7 @@ type OnboardingFormData = z.infer<typeof onboardingSchema>
 
 export function RegistrationForm() {
   const [isAdditionalInfoOpen, setIsAdditionalInfoOpen] = useState(false)
+  const router = useRouter()
 
   const {
     register,
@@ -39,7 +42,7 @@ export function RegistrationForm() {
 
   const onSubmit = (data: OnboardingFormData) => {
     console.log('Form data:', data)
-    alert('Continuando al paso 2...')
+    router.push('/home')
   }
 
   return (
@@ -76,30 +79,13 @@ export function RegistrationForm() {
         <div className="bg-white border border-[#bcc9c6] rounded-2xl shadow-sm p-5 sm:p-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-6">
-              {/* Entrepreneur Name */}
-              <div className="space-y-2">
-                <label className="block text-sm font-bold text-[#131b2e]" htmlFor="nombre_emprendedor">
-                  Nombre del emprendedor <span className="text-[#ba1a1a]">*</span>
-                </label>
-                <input
-                  {...register('nombre_emprendedor')}
-                  className={`w-full h-12 px-4 text-base rounded-xl border ${errors.nombre_emprendedor ? 'border-[#ba1a1a]' : 'border-[#bcc9c6]'} focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/30 outline-none`}
-                  id="nombre_emprendedor"
-                  placeholder="Tu nombre completo"
-                  type="text"
-                />
-                {errors.nombre_emprendedor && (
-                  <p className="text-xs text-[#ba1a1a] font-medium">{errors.nombre_emprendedor.message}</p>
-                )}
-              </div>
-
               {/* Contact group: email OR phone */}
               <div className="space-y-2">
                 <div>
                   <p className="text-sm font-bold text-[#131b2e]">
-                    Datos de contacto <span className="text-[#ba1a1a]">*</span>
+                    Datos de la cuenta <span className="text-[#ba1a1a]">*</span>
                   </p>
-                  <p className="text-xs text-[#6d7a77] mt-0.5">Ingresa al menos uno</p>
+                  <p className="text-xs text-[#6d7a77] mt-0.5">Ingresa al menos uno. Con esta información puedes acceder a tu cuenta.</p>
                 </div>
 
                 <div className={`border rounded-xl overflow-hidden ${errors.correo_electronico || errors.celular_contacto ? 'border-[#ba1a1a]' : 'border-[#bcc9c6]'}`}>
@@ -108,16 +94,13 @@ export function RegistrationForm() {
                     <label className="block text-xs font-semibold text-[#6d7a77] mb-1.5" htmlFor="celular_contacto">
                       Celular
                     </label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6d7a77] font-bold text-sm">+57</span>
-                      <input
-                        {...register('celular_contacto')}
-                        className="w-full h-11 pl-11 pr-3 text-base rounded-lg border border-[#e2e8f0] focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/50 outline-none"
-                        id="celular_contacto"
-                        placeholder="Ej: 300 333 4444"
-                        type="tel"
-                      />
-                    </div>
+                    <input
+                      {...register('celular_contacto')}
+                      className="w-full h-11 px-3 text-base rounded-lg border border-[#e2e8f0] focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/50 outline-none"
+                      id="celular_contacto"
+                      placeholder="Ej: 300 333 4444"
+                      type="tel"
+                    />
                   </div>
 
                   {/* Email */}
@@ -141,6 +124,43 @@ export function RegistrationForm() {
                 )}
                 {errors.celular_contacto && (
                   <p className="text-xs text-[#ba1a1a] font-medium">{errors.celular_contacto.message}</p>
+                )}
+              </div>
+
+              {/* Password */}
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-[#131b2e]" htmlFor="contrasena">
+                  Contraseña <span className="text-[#ba1a1a]">*</span>
+                </label>
+                <input
+                  {...register('contrasena')}
+                  className={`w-full h-12 px-4 text-base rounded-xl border ${errors.contrasena ? 'border-[#ba1a1a]' : 'border-[#bcc9c6]'} focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/30 outline-none`}
+                  id="contrasena"
+                  placeholder="Mínimo 8 caracteres"
+                  type="password"
+                  autoComplete="new-password"
+                />
+                {errors.contrasena && (
+                  <p className="text-xs text-[#ba1a1a] font-medium">{errors.contrasena.message}</p>
+                )}
+              </div>
+
+              <div className="h-px bg-slate-100" />
+
+              {/* Entrepreneur Name */}
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-[#131b2e]" htmlFor="nombre_emprendedor">
+                  Nombre del emprendedor <span className="text-[#ba1a1a]">*</span>
+                </label>
+                <input
+                  {...register('nombre_emprendedor')}
+                  className={`w-full h-12 px-4 text-base rounded-xl border ${errors.nombre_emprendedor ? 'border-[#ba1a1a]' : 'border-[#bcc9c6]'} focus:border-[#00685f] focus:ring-4 focus:ring-[#00685f]/10 transition-all bg-slate-50/30 outline-none`}
+                  id="nombre_emprendedor"
+                  placeholder="Tu nombre completo"
+                  type="text"
+                />
+                {errors.nombre_emprendedor && (
+                  <p className="text-xs text-[#ba1a1a] font-medium">{errors.nombre_emprendedor.message}</p>
                 )}
               </div>
 
