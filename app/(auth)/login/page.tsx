@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
+import { LoginScreen } from '@/components/auth/LoginScreen'
 
-import { LoginForm } from '@/components/auth/LoginForm'
-
-export const metadata: Metadata = { title: 'Sign In' }
+export const metadata: Metadata = { title: 'Ingresar | Conexiones Ruta C' }
 
 export default function LoginPage() {
-  return <LoginForm />
+  return <LoginScreen />
 }

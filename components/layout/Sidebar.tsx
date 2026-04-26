@@ -1,6 +1,6 @@
 'use client'
 
-import { LayoutDashboard, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Settings, LogOut, UserPlus, LogIn, Home } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -15,8 +15,11 @@ export function Sidebar() {
   const t = useTranslations('sidebar')
 
   const navItems = [
+    { href: '/home', label: 'Inicio', icon: Home },
     { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
     { href: '/dashboard/settings', label: t('settings'), icon: Settings },
+    { href: '/onboarding', label: 'Registro', icon: UserPlus },
+    { href: '/login', label: 'Login', icon: LogIn },
   ]
 
   return (
